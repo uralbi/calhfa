@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en" data-current-lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Habitat for Humanity Homeownership Guide</title>
+    <style>
+      :root {
+        --bg: #f4f6f8;
+        --card: #ffffff;
+        --ink: #17212f;
+        --muted: #5d6b7a;
+        --line: #d9e1ea;
+        --blue: #2457a6;
+        --green: #1f7358;
+        --warn: #fff2cc;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.42;
+      }
+
+      a {
+        color: var(--blue);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .page {
+        width: min(1080px, calc(100% - 28px));
+        margin: 0 auto;
+        padding: 24px 0;
+      }
+
+      header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 18px;
+        align-items: start;
+        margin-bottom: 14px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .tag {
+        margin: 0 0 6px;
+        color: var(--green);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 5.5vw, 3.5rem);
+        line-height: 1;
+      }
+
+      .lead {
+        max-width: 780px;
+        margin: 10px 0 0;
+        color: var(--muted);
+      }
+
+      .language {
+        display: flex;
+        gap: 6px;
+        padding: 4px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--card);
+      }
+
+      .language button {
+        min-width: 76px;
+        min-height: 36px;
+        border: 0;
+        border-radius: 6px;
+        background: transparent;
+        color: var(--muted);
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .language button.active {
+        background: var(--blue);
+        color: #fff;
+      }
+
+      [data-lang] {
+        display: none;
+      }
+
+      html[data-current-lang="en"] [data-lang="en"],
+      html[data-current-lang="ru"] [data-lang="ru"] {
+        display: revert;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 14px 0;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 40px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        padding: 0 13px;
+        border: 1px solid var(--line);
+        background: var(--card);
+      }
+
+      .button.primary {
+        border-color: var(--blue);
+        background: var(--blue);
+        color: #fff;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 14px;
+      }
+
+      .stack {
+        display: grid;
+        gap: 14px;
+      }
+
+      section {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--card);
+        padding: 15px;
+      }
+
+      h2 {
+        margin: 0 0 10px;
+        font-size: 1.02rem;
+      }
+
+      h3 {
+        margin: 12px 0 6px;
+        font-size: 0.95rem;
+      }
+
+      p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      ul,
+      ol {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      li {
+        color: var(--muted);
+      }
+
+      li + li {
+        margin-top: 6px;
+      }
+
+      strong {
+        color: var(--ink);
+      }
+
+      .facts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+
+      .fact {
+        min-height: 92px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 12px;
+        background: #fbfcfe;
+      }
+
+      .fact b {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--blue);
+        font-size: 1.35rem;
+        line-height: 1;
+      }
+
+      .steps {
+        display: grid;
+        gap: 8px;
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 30px 1fr;
+        gap: 10px;
+      }
+
+      .num {
+        display: grid;
+        width: 30px;
+        height: 30px;
+        place-items: center;
+        border-radius: 50%;
+        background: #e8f0fb;
+        color: var(--blue);
+        font-weight: 900;
+      }
+
+      .notice {
+        border-color: #efcc74;
+        background: var(--warn);
+      }
+
+      .compact-list {
+        columns: 2;
+        column-gap: 28px;
+      }
+
+      .link-list {
+        display: grid;
+        gap: 8px;
+      }
+
+      .link-list a {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 9px 10px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: #fbfcfe;
+      }
+
+      .link-list span {
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 500;
+      }
+
+      footer {
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      @media (max-width: 820px) {
+        header,
+        .grid,
+        .facts {
+          grid-template-columns: 1fr;
+        }
+
+        .language {
+          width: 100%;
+        }
+
+        .language button {
+          flex: 1;
+        }
+
+        .compact-list {
+          columns: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div data-lang="en">
+          <p class="tag">Habitat for Humanity</p>
+          <h1>Affordable homeownership through Habitat</h1>
+          <p class="lead">
+            Habitat for Humanity is a nonprofit affordable-homeownership program.
+            It does not give away houses; selected buyers partner with a local affiliate,
+            help build or improve homes, complete education, and pay an affordable mortgage.
+          </p>
+        </div>
+
+        <div data-lang="ru">
+          <p class="tag">Habitat for Humanity</p>
+          <h1>Доступное владение жильем через Habitat</h1>
+          <p class="lead">
+            Habitat for Humanity - некоммерческая программа доступного владения жильем.
+            Дома не раздают бесплатно: выбранные покупатели работают с местным филиалом,
+            участвуют в строительстве или ремонте, проходят обучение и платят доступную ипотеку.
+          </p>
+        </div>
+
+        <div class="language" aria-label="Language">
+          <button type="button" class="active" data-set-lang="en">English</button>
+          <button type="button" data-set-lang="ru">Русский</button>
+        </div>
+      </header>
+
+      <nav class="actions" aria-label="Important links">
+        <a class="button" href="index.html">
+          <span data-lang="en">CalHFA guide</span>
+          <span data-lang="ru">Гид CalHFA</span>
+        </a>
+        <a class="button primary" href="https://www.habitat.org/housing-help/apply" target="_blank" rel="noreferrer">
+          <span data-lang="en">Apply for a Habitat house</span>
+          <span data-lang="ru">Как подать заявку</span>
+        </a>
+        <a class="button" href="https://www.habitat.org/local/affiliate-by-zip" target="_blank" rel="noreferrer">
+          <span data-lang="en">Find local Habitat</span>
+          <span data-lang="ru">Найти местный Habitat</span>
+        </a>
+        <a class="button" href="tel:18004224828">1-800-422-4828</a>
+      </nav>
+
+      <main class="grid">
+        <div class="stack">
+          <section>
+            <div data-lang="en">
+              <h2>Program in one minute</h2>
+              <div class="facts">
+                <div class="fact"><b>Nonprofit</b> Local affiliates manage applications and homeowner selection.</div>
+                <div class="fact"><b>30%</b> Affordable housing generally means housing costs are no more than 30% of income.</div>
+                <div class="fact"><b>Mortgage</b> Buyers pay an affordable mortgage; payments help fund more Habitat homes.</div>
+              </div>
+            </div>
+
+            <div data-lang="ru">
+              <h2>Программа за одну минуту</h2>
+              <div class="facts">
+                <div class="fact"><b>Nonprofit</b> Местные филиалы принимают заявки и выбирают будущих владельцев.</div>
+                <div class="fact"><b>30%</b> Доступное жилье обычно означает расходы не выше 30% дохода.</div>
+                <div class="fact"><b>Ипотека</b> Покупатели платят доступную ипотеку; платежи помогают строить новые дома.</div>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <div data-lang="en">
+              <h2>Who may qualify</h2>
+              <ul>
+                <li><strong>Need for safe, affordable housing:</strong> overcrowding, unsafe or unhealthy housing, accessibility problems, or housing costs above 30% of gross monthly income.</li>
+                <li><strong>Low- to moderate-income:</strong> U.S. applicants generally must not exceed 60% of area median income, based on HUD definitions.</li>
+                <li><strong>Willingness to partner:</strong> future homeowners complete sweat equity and homeowner education.</li>
+                <li><strong>Ability to pay:</strong> buyers must be able and willing to pay an affordable mortgage.</li>
+              </ul>
+            </div>
+
+            <div data-lang="ru">
+              <h2>Кто может подойти</h2>
+              <ul>
+                <li><strong>Нужда в безопасном и доступном жилье:</strong> тесное, небезопасное или вредное жилье, проблемы доступности или расходы на жилье выше 30% gross monthly income.</li>
+                <li><strong>Low- to moderate-income:</strong> в США доход заявителей обычно не должен превышать 60% area median income по HUD.</li>
+                <li><strong>Готовность участвовать:</strong> будущие владельцы выполняют sweat equity и проходят обучение.</li>
+                <li><strong>Способность платить:</strong> покупатель должен быть готов и способен платить доступную ипотеку.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section>
+            <div data-lang="en">
+              <h2>Orange County income range</h2>
+              <p>
+                For Orange County, the practical Habitat range is: <strong>minimum</strong> income
+                high enough to afford the local Habitat mortgage after review, and <strong>maximum</strong>
+                income at or below HUD's 60% AMI limit. There is no single fixed minimum on the
+                national Habitat page.
+              </p>
+              <h3>FY 2026 maximum income by household size</h3>
+              <ul class="compact-list">
+                <li>1 person: $78,150</li>
+                <li>2 people: $89,350</li>
+                <li>3 people: $100,500</li>
+                <li>4 people: $111,650</li>
+                <li>5 people: $120,600</li>
+                <li>6 people: $129,550</li>
+                <li>7 people: $138,450</li>
+                <li>8 people: $147,400</li>
+              </ul>
+              <p style="margin-top:10px">
+                With <strong>$90,000 household income</strong>, you are likely over the 2-person limit
+                by about $650, but under the limit for a household of 3 or more.
+              </p>
+            </div>
+
+            <div data-lang="ru">
+              <h2>Диапазон дохода для Orange County</h2>
+              <p>
+                Для Orange County практический диапазон Habitat такой: <strong>минимум</strong> -
+                доход должен быть достаточным, чтобы платить местную Habitat mortgage после проверки;
+                <strong>максимум</strong> - не выше HUD 60% AMI. Единого фиксированного минимума
+                на национальной странице Habitat нет.
+              </p>
+              <h3>Максимальный доход FY 2026 по размеру семьи</h3>
+              <ul class="compact-list">
+                <li>1 человек: $78,150</li>
+                <li>2 человека: $89,350</li>
+                <li>3 человека: $100,500</li>
+                <li>4 человека: $111,650</li>
+                <li>5 человек: $120,600</li>
+                <li>6 человек: $129,550</li>
+                <li>7 человек: $138,450</li>
+                <li>8 человек: $147,400</li>
+              </ul>
+              <p style="margin-top:10px">
+                При <strong>доходе семьи $90,000</strong> вы, вероятно, немного выше лимита для 2
+                человек примерно на $650, но ниже лимита для семьи из 3 или более человек.
+              </p>
+            </div>
+          </section>
+
+          <section>
+            <div data-lang="en">
+              <h2>Steps to homeownership</h2>
+              <div class="steps">
+                <div class="step"><div class="num">1</div><p><strong>Inquire: 0-1 month.</strong> Contact your local Habitat and attend an information session if offered.</p></div>
+                <div class="step"><div class="num">2</div><p><strong>Apply: 1-3 months.</strong> Submit documents during an open enrollment period.</p></div>
+                <div class="step"><div class="num">3</div><p><strong>Interview: 1-2 months.</strong> Habitat may visit your home and review housing needs.</p></div>
+                <div class="step"><div class="num">4</div><p><strong>Approval: 1-3 months.</strong> Local staff and the local board review applications.</p></div>
+                <div class="step"><div class="num">5</div><p><strong>Participate: 6-12 months.</strong> Complete education and sweat equity hours while the home process moves forward.</p></div>
+                <div class="step"><div class="num">6</div><p><strong>Close: 1-2 months.</strong> Sign mortgage paperwork with payments matched to income.</p></div>
+                <div class="step"><div class="num">7</div><p><strong>Move in: after closing.</strong> Move in after closing and construction are complete.</p></div>
+              </div>
+              <p style="margin-top:10px">
+                Average total timeline: <strong>about 12-24 months</strong> from application to move-in.
+              </p>
+            </div>
+
+            <div data-lang="ru">
+              <h2>Шаги к владению жильем</h2>
+              <div class="steps">
+                <div class="step"><div class="num">1</div><p><strong>Узнать: 0-1 месяц.</strong> Свяжитесь с местным Habitat и посетите информационную встречу, если она есть.</p></div>
+                <div class="step"><div class="num">2</div><p><strong>Подать заявку: 1-3 месяца.</strong> Отправьте документы во время открытого периода приема заявок.</p></div>
+                <div class="step"><div class="num">3</div><p><strong>Интервью: 1-2 месяца.</strong> Habitat может посетить дом и оценить жилищные нужды.</p></div>
+                <div class="step"><div class="num">4</div><p><strong>Одобрение: 1-3 месяца.</strong> Местная команда и board рассматривают заявки.</p></div>
+                <div class="step"><div class="num">5</div><p><strong>Участие: 6-12 месяцев.</strong> Пройдите обучение и выполните sweat equity hours, пока процесс по дому движется вперед.</p></div>
+                <div class="step"><div class="num">6</div><p><strong>Закрытие сделки: 1-2 месяца.</strong> Подпишите ипотечные документы с платежами по доходу.</p></div>
+                <div class="step"><div class="num">7</div><p><strong>Переезд: после closing.</strong> Переезд после closing и завершения строительства.</p></div>
+              </div>
+              <p style="margin-top:10px">
+                Средний общий срок: <strong>примерно 12-24 месяца</strong> от заявки до переезда.
+              </p>
+            </div>
+          </section>
+
+          <section>
+            <div data-lang="en">
+              <h2>What sweat equity means</h2>
+              <p>
+                Sweat equity is not a cash payment. It is the homeowner investing time in their
+                own home or another Habitat home. Depending on the affiliate, it may include work
+                on a build site, ReStore volunteering, office tasks, and homeowner classes.
+              </p>
+            </div>
+
+            <div data-lang="ru">
+              <h2>Что такое sweat equity</h2>
+              <p>
+                Sweat equity - это не денежный платеж. Это вклад временем в свой будущий дом
+                или дом другой семьи Habitat. В зависимости от филиала это может быть работа
+                на стройке, помощь в ReStore, офисные задачи и учебные занятия.
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <aside class="stack">
+          <section class="notice">
+            <div data-lang="en">
+              <h2>Important</h2>
+              <p>
+                Habitat applications are local. Rules, income limits, open enrollment dates,
+                required sweat equity hours, home availability, and mortgage terms vary by affiliate.
+              </p>
+            </div>
+            <div data-lang="ru">
+              <h2>Важно</h2>
+              <p>
+                Заявки Habitat подаются через местный филиал. Правила, лимиты дохода, даты приема
+                заявок, часы sweat equity, наличие домов и условия ипотеки отличаются по филиалам.
+              </p>
+            </div>
+          </section>
+
+          <section>
+            <div data-lang="en">
+              <h2>Documents to prepare</h2>
+              <ul class="compact-list">
+                <li>Photo ID</li>
+                <li>Proof of income: pay stubs, benefits, tax returns, or W-2s</li>
+                <li>Current rent or mortgage information</li>
+                <li>Current lease, utility bills, or proof of address</li>
+                <li>Debt and monthly payment information</li>
+                <li>Bank statements</li>
+                <li>Proof of current housing problems, if relevant</li>
+                <li>Household member information</li>
+              </ul>
+            </div>
+
+            <div data-lang="ru">
+              <h2>Документы для подготовки</h2>
+              <ul class="compact-list">
+                <li>Photo ID</li>
+                <li>Подтверждение дохода: pay stubs, benefits, tax returns или W-2</li>
+                <li>Информация о текущей аренде или ипотеке</li>
+                <li>Lease, коммунальные счета или proof of address</li>
+                <li>Информация о долгах и ежемесячных платежах</li>
+                <li>Банковские выписки</li>
+                <li>Доказательства проблем с текущим жильем, если есть</li>
+                <li>Информация о членах семьи</li>
+              </ul>
+            </div>
+          </section>
+
+          <section>
+            <div data-lang="en">
+              <h2>Questions to ask</h2>
+              <ol>
+                <li>Is your homeownership application currently open?</li>
+                <li>What ZIP codes or cities do you serve?</li>
+                <li>What income range applies to my household size?</li>
+                <li>How many sweat equity hours are required?</li>
+                <li>What documents should I bring to orientation?</li>
+                <li>How long is the selection and build process?</li>
+                <li>How is the mortgage payment calculated?</li>
+              </ol>
+            </div>
+
+            <div data-lang="ru">
+              <h2>Вопросы местному Habitat</h2>
+              <ol>
+                <li>Сейчас открыт прием заявок на homeownership?</li>
+                <li>Какие ZIP codes или города вы обслуживаете?</li>
+                <li>Какой диапазон дохода подходит для размера моей семьи?</li>
+                <li>Сколько sweat equity hours требуется?</li>
+                <li>Какие документы принести на orientation?</li>
+                <li>Сколько обычно длится отбор и строительство?</li>
+                <li>Как рассчитывается ипотечный платеж?</li>
+              </ol>
+            </div>
+          </section>
+
+          <section>
+            <div data-lang="en">
+              <h2>Useful links</h2>
+            </div>
+            <div data-lang="ru">
+              <h2>Полезные ссылки</h2>
+            </div>
+            <div class="link-list">
+              <a href="https://www.habitat.org/housing-help" target="_blank" rel="noreferrer">Housing help <span>Overview</span></a>
+              <a href="https://www.habitat.org/housing-help/apply" target="_blank" rel="noreferrer">Apply for a Habitat house <span>Official</span></a>
+              <a href="https://www.habitat.org/housing-help/apply/qualifications-for-habitat-homeownership" target="_blank" rel="noreferrer">Homeowner qualifications <span>Official</span></a>
+              <a href="https://www.habitat.org/stories/steps-homeownership" target="_blank" rel="noreferrer">Steps to homeownership <span>Official</span></a>
+              <a href="https://www.habitat.org/stories/what-is-sweat-equity" target="_blank" rel="noreferrer">Sweat equity <span>Official</span></a>
+              <a href="https://www.habitat.org/local/affiliate-by-zip" target="_blank" rel="noreferrer">Find local Habitat <span>ZIP search</span></a>
+              <a href="https://www.huduser.gov/portal/datasets/il.html" target="_blank" rel="noreferrer">HUD income limits <span>AMI</span></a>
+            </div>
+          </section>
+        </aside>
+      </main>
+
+      <footer>
+        <span data-lang="en">
+          Personal checklist based on Habitat for Humanity information reviewed July 2026.
+          Confirm current requirements with your local Habitat affiliate.
+        </span>
+        <span data-lang="ru">
+          Личный чеклист на основе информации Habitat for Humanity, проверенной в июле 2026.
+          Актуальные требования подтверждайте в местном филиале Habitat.
+        </span>
+      </footer>
+    </div>
+
+    <script>
+      const root = document.documentElement;
+      const buttons = document.querySelectorAll("[data-set-lang]");
+
+      function setLanguage(lang) {
+        root.dataset.currentLang = lang;
+        root.lang = lang;
+        buttons.forEach((button) => {
+          button.classList.toggle("active", button.dataset.setLang === lang);
+        });
+        localStorage.setItem("homebuyer-language", lang);
+      }
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => setLanguage(button.dataset.setLang));
+      });
+
+      setLanguage(localStorage.getItem("homebuyer-language") || "en");
+    </script>
+  </body>
+</html>
